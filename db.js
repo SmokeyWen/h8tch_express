@@ -11,13 +11,22 @@ function initDB (h8tch_todo, todos, success, failure) {
         else {
             // DB
             const dbObject = dbInstance.db(h8tch_todo);
+            // console.log('what is dbObject', dbObject);
             // table
             const dbCollection = dbObject.collection(todos);
             console.log('[MongoDB connection] Success!!!!!!');
 
-            success(dbCollection);
+            success(dbInstance, dbCollection);
         }
     })
 }
 
-module.exports = {initDB};
+async function closeDB () {
+    console.log('did i start?')
+    await MongoClient.close()
+    .then(() => {
+        console.log('DB connection closed!!!!!!')
+    })
+}
+
+module.exports = {initDB, closeDB};

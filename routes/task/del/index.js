@@ -9,15 +9,16 @@ const ObjectId = require('mongodb').ObjectId;
 router.delete('/', async(req, res) => {
     // return res.json({msg : 'delete working'});
     const targetId = req.query.id;
-    console.log('task id:', targetId);
+    // console.log('task id:', targetId);
     if (targetId !== undefined){
-        console.log('deleting a specific task');
+        // console.log('deleting a specific task');
         const query = {"_id" : new ObjectId(targetId)};
-        initDB.initDB(dbName, collectionName, function(db){
-            db.deleteOne(query)
+        initDB.initDB(dbName, collectionName, function(instance, collection){
+            collection.deleteOne(query)
             .then((result) => {
-                db.find().toArray((_err, _result) => {
+                collection.find().toArray( async (_err, _result) => {
                     if (_err) throw _err;
+                    await instance.close(() => console.log('DELETE 1 task done. DB closed...'));
                     res.status(200).json(_result);
                 })
             })
@@ -25,10 +26,11 @@ router.delete('/', async(req, res) => {
         })
     }
     else {
-        console.log('deleting all tasks');
-        initDB.initDB(dbName, collectionName, function(db) {
-            db.deleteMany()
-            .then(result => {
+        // console.log('deleting all tasks');
+        initDB.initDB(dbName, collectionName, function(instance, collection) {
+            collection.deleteMany()
+            .then( async (result) => {
+                await instance.close(() => console.log('DELETE all tasks done. DB closed...'));
                 return res.status(200).json({msg : "All tasks deleted"})
             })
             .catch(err => console.log(err))

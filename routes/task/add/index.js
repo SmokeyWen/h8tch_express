@@ -10,17 +10,22 @@ router.post('/', jsonParser, async(req, res) => {
     // return res.json({msg : 'add working'});
     try {
         const payload = req.body;
-        console.log('payload from post:', payload);
-        initDB.initDB(dbName, collectionName, function(db){
-            db.insertOne(payload, function(err, result){
+        // console.log('payload from post:', payload);
+        initDB.initDB(dbName, collectionName, function(instance, collection){
+            collection.insertOne(payload, function(err, result){
                 if (err) throw err;
-                db.find().toArray((_err, _result) => {
+                collection.find().toArray( async (_err, _result) => {
                     if (_err) throw _err;
                     // console.log(result1);
+                    await instance.close(() => console.log('ADD done. DB closed...'));
                     res.status(200).json(_result);
+                    
                 })
             })
+            
+            
         })
+        // initDB.closeDB();
     }
     catch(e){
         return res.json({msg : e});

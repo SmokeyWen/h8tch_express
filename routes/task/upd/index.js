@@ -9,15 +9,15 @@ const ObjectId = require('mongodb').ObjectId;
 router.put('/', async(req, res) => {
     // return res.json({msg : 'update working'});
     const targetId = req.query.id;
-    console.log('target id', targetId);
+    // console.log('target id', targetId);
     const query = {"_id" : new ObjectId(targetId)}
     const projection = {"is_done" : 1};
 
-    initDB.initDB(dbName, collectionName, function(db) {
+    initDB.initDB(dbName, collectionName, function(instance, collection) {
         // find data with id. return only with is_done field
-        db.findOne(query, projection)
+        collection.findOne(query, projection)
         .then(result => {
-            console.log('found result', result);
+            // console.log('found result', result);
             const options = {upsert : false};
             let updateRow = {};
             if (result.is_done === 0){
@@ -26,11 +26,12 @@ router.put('/', async(req, res) => {
             else {
                 updateRow = {$set : {is_done : 0}};
             }
-            db.updateOne(query, updateRow, options)
+            collection.updateOne(query, updateRow, options)
             .then(result1 => {
                 // console.log('updated?', result1);
-                db.find().toArray((_err, _result) => {
+                collection.find().toArray( async (_err, _result) => {
                     if (_err) throw _err;
+                    await instance.close(() => console.log('UPDATE done. DB closed...'));
                     res.status(200).json(_result);
                 })
             })
