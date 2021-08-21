@@ -1,0 +1,33 @@
+{
+  "name": "h8tch_express",
+  "version": "1.0.0",
+  "description": "Backend for Todo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmokeyWen/h8tch_express.git"
+  },
+  "author": "Xuan Wen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SmokeyWen/h8tch_express/issues"
+  },
+  "homepage": "https://github.com/SmokeyWen/h8tch_express#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jest": "^27.0.6",
+    "moment": "^2.29.1",
+    "mongodb": "^4.1.0",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6"
+  }
+}
