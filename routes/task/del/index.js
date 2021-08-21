@@ -19,7 +19,7 @@ router.delete('/', async(req, res) => {
                 collection.find().toArray( async (_err, _result) => {
                     if (_err) throw _err;
                     await instance.close(() => console.log('DELETE 1 task done. DB closed...'));
-                    res.status(200).json(_result);
+                    return res.status(200).json(_result);
                 })
             })
             .catch((e) => console.log('Error in delete one task:', e))

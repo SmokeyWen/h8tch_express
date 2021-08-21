@@ -11,12 +11,8 @@ router.get('/', async (req, res) => {
         collection.find().toArray( async function(err, result){
             if (err) throw err;
             await instance.close(() => console.log('GET done. DB closed...'));
-            res.status(200).json(result);
+            return res.status(200).json(result);
         })
-        // await db.close(() => {
-        //     console.log('db closed')
-        // });
-
     })
 })
 
