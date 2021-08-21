@@ -14,10 +14,10 @@ router.post('/', jsonParser, async(req, res) => {
         initDB.initDB(dbName, collectionName, function(db){
             db.insertOne(payload, function(err, result){
                 if (err) throw err;
-                db.find().toArray((err1, result1) => {
-                    if (err1) throw err1;
+                db.find().toArray((_err, _result) => {
+                    if (_err) throw _err;
                     // console.log(result1);
-                    res.status(200).json(result1);
+                    res.status(200).json(_result);
                 })
             })
         })
