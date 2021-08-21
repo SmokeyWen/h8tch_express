@@ -7,10 +7,11 @@ const {DB, dbName, collectionName} = require('../../../constants/vars');
 
 // Test DB connection
 router.get('/', async (req, res) => {
-    initDB.initDB(dbName, collectionName, function(db){
-        db.find().toArray(function(err, result){
+    initDB.initDB(dbName, collectionName, function(instance, collection){
+        collection.find().toArray( async function(err, result){
             if (err) throw err;
-            res.status(200).json(result);
+            await instance.close(() => console.log('GET done. DB closed...'));
+            return res.status(200).json(result);
         })
     })
 })
