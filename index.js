@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express');
 const app = express();
 
-// const index = require('./routes');
+const index = require('./routes');
 
 const cors = require('cors');
 const PORT = process.env.PORT || 8080;
@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 8080;
 // .catch(e => console.log(e))
 
 app.use(cors());
-// app.use('/', index);
+app.use('/', index);
 
 app.get('/', (req, res) => {
     res.status(200).json({status : 'server up'});
