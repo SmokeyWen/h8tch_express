@@ -5,8 +5,26 @@ const jsonParser = bodyParser.json();
 const initDB = require('../../../db');
 const {DB, dbName, collectionName} = require('../../../constants/vars');
 
-router.post('/', async(req, res) => {
-    return res.json({msg : 'add working'});
+router.post('/', jsonParser, async(req, res) => {
+    // console.log(req.body)
+    // return res.json({msg : 'add working'});
+    try {
+        const payload = req.body;
+        console.log('payload from post:', payload);
+        initDB.initDB(dbName, collectionName, function(db){
+            db.insertOne(payload, function(err, result){
+                if (err) throw err;
+                db.find().toArray((err1, result1) => {
+                    if (err1) throw err1;
+                    // console.log(result1);
+                    res.status(200).json(result1);
+                })
+            })
+        })
+    }
+    catch(e){
+        return res.json({msg : e});
+    }
 })
 
 module.exports = router;

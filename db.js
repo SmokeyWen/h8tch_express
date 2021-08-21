@@ -1,6 +1,6 @@
 const {DB} = require('./constants/vars');
 const MongoClient = require('mongodb').MongoClient;
-console.log('DB credentials:', process.env.DB);
+// console.log('DB credentials:', process.env.DB);
 
 function initDB (h8tch_todo, todos, success, failure) {
     MongoClient.connect(DB, function(err, dbInstance){
@@ -13,7 +13,7 @@ function initDB (h8tch_todo, todos, success, failure) {
             const dbObject = dbInstance.db(h8tch_todo);
             // table
             const dbCollection = dbObject.collection(todos);
-            console.log('[MongoDB connection] ERROR');
+            console.log('[MongoDB connection] Success!!!!!!');
 
             success(dbCollection);
         }
