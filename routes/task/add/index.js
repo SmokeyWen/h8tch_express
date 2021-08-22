@@ -17,7 +17,7 @@ router.post('/', jsonParser, async(req, res) => {
                 collection.find().toArray( async (_err, _result) => {
                     if (_err) throw _err;
                     // console.log(result1);
-                    // await instance.close(() => console.log('ADD done. DB closed...'));
+                    await instance.close(() => console.log('ADD done. DB closed...'));
                     return res.status(200).json(_result);
                     
                 })
