@@ -75,8 +75,8 @@ describe('Test Delete One Task', () => {
 
 
 describe('Test DeleteAll', () => {
-    test("DELETE /task/del", async () => {
-      await supertest(app).delete("/task/del")
+    test("DELETE /task/del/all", async () => {
+      await supertest(app).delete("/task/del/all")
         .expect(200)
         .then((response) => {
             // console.log(response)
