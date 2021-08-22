@@ -30,7 +30,7 @@ router.delete('/', async(req, res) => {
     }
 })
 
-router.delete('/all', async(req, res) => {
+router.get('/all', async(req, res) => {
     initDB.initDB(dbName, collectionName, function(instance, collection) {
         collection.deleteMany()
         .then( async (result) => {
