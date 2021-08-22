@@ -31,7 +31,7 @@ router.put('/', async(req, res) => {
                 // console.log('updated?', result1);
                 collection.find().toArray( async (_err, _result) => {
                     if (_err) throw _err;
-                    await instance.close(() => console.log('UPDATE done. DB closed...'));
+                    // await instance.close(() => console.log('UPDATE done. DB closed...'));
                     return res.status(200).json(_result);
                 })
             })

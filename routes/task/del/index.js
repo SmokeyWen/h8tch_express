@@ -18,7 +18,7 @@ router.delete('/', async(req, res) => {
             .then((result) => {
                 collection.find().toArray( async (_err, _result) => {
                     if (_err) throw _err;
-                    await instance.close(() => console.log('DELETE 1 task done. DB closed...'));
+                    // await instance.close(() => console.log('DELETE 1 task done. DB closed...'));
                     return res.status(200).json(_result);
                 })
             })
@@ -31,7 +31,7 @@ router.delete('/', async(req, res) => {
             collection.deleteMany()
             .then( async (result) => {
                 console.log('delete all result', result)
-                await instance.close(() => console.log('DELETE all tasks done. DB closed...'));
+                // await instance.close(() => console.log('DELETE all tasks done. DB closed...'));
                 return res.status(200).json({msg : "All tasks deleted"})
             })
             .catch(err => console.log(err))
