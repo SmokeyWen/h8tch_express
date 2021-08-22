@@ -1,10 +1,6 @@
 const app = require('../index');
 const supertest = require('supertest');
 
-beforeAll(done => {
-    done()
-  })
-
 describe('Test connection to MongoDB', () => {
     test('GET /task/get', async () => {
         await supertest(app).get('/task/get')
@@ -91,7 +87,3 @@ describe('Test DeleteAll', () => {
         });
     });
 });
-
-afterAll(done => {
-    done()
-  })

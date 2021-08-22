@@ -30,7 +30,7 @@ router.delete('/', async(req, res) => {
         initDB.initDB(dbName, collectionName, function(instance, collection) {
             collection.deleteMany()
             .then( async (result) => {
-                await instance.close(() => console.log('DELETE all tasks done. DB closed...'));
+                // await instance.close(() => console.log('DELETE all tasks done. DB closed...'));
                 return res.status(200).json({msg : "All tasks deleted"})
             })
             .catch(err => console.log(err))
